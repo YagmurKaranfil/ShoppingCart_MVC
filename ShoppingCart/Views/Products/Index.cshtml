@@ -1,0 +1,45 @@
+﻿
+@*Product tipinde nesneleri içeren bir koleksiyonu temsil eder*@
+ @model IEnumerable<Product>
+
+@{
+        ViewData["Title"] = "Products";
+}
+
+<div class="row ">
+      <h1>Products</h1>
+
+        @foreach (var item in Model)
+        {
+                <div class="col-4">
+                        <img src="/media/products/@item.Image" class="img-fluid" alt="" />
+                        <h4>@item.Name</h4>
+                        <div>
+                @*Html.Raw() fonksiyonu, içeriğin HTML kodu olarak değil, düz metin olarak  işlenmesini sağlar.*@
+                                @Html.Raw(item.Description)
+                        </div>
+                        <p>
+                @*ToString("C2") yöntemi, item.Price değerini bir para birimi olarak biçimlendirmek için kullanılır.
+            C2 format dizisi, değeri küsüratlı iki basamağa kadar yuvarlar ve yerel para birimi simgesiyle birlikte görüntüler.*@
+
+                                @item.Price.ToString("C2")
+                        </p>
+                        <p>
+                                <a class="btn btn-primary" asp-controller="Cart" asp-action="Add" asp-route-id="@item.Id">Add to cart</a>
+                        </p>
+                </div>
+        }
+
+
+        @if (ViewBag.TotalPages > 1)
+        {
+                <div class="d-flex w-100 justify-content-center">
+                        <pagination page-count="@ViewBag.TotalPages"
+                            page-target="/products/@ViewBag.CategorySlug"
+                            page-number="@ViewBag.PageNumber"
+                            page-range="@ViewBag.PageRange">
+                        </pagination>
+                </div>
+        }
+
+</div>

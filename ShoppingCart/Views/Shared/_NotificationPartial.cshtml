@@ -1,0 +1,16 @@
+﻿@*herhangi Controller dan oluşturulmuş olan veriyi Views ler arasında taşımamıza veya 
+tek bir View içerisinde elimizdeki veriyi ekran çıktısı olarak görüntüler.*@
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success notification">
+        @TempData["Success"]
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger notification">
+        @TempData["Error"]
+    </div>
+}
